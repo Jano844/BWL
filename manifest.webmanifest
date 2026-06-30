@@ -1,0 +1,20 @@
+{
+  "name": "BWL Lernapp",
+  "short_name": "BWL Lernapp",
+  "description": "Interaktive Lernapp für BWL mit Karteikarten, Quiz und Übungen.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#f1f5f9",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

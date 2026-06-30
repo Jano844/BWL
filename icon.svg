@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BWL Lernapp Icon">
+  <rect width="512" height="512" rx="120" fill="#4f46e5"/>
+  <rect x="96" y="120" width="320" height="272" rx="28" fill="#ffffff"/>
+  <path d="M164 220h184" stroke="#4f46e5" stroke-width="24" stroke-linecap="round"/>
+  <path d="M164 280h120" stroke="#4f46e5" stroke-width="24" stroke-linecap="round"/>
+  <path d="M164 340h94" stroke="#4f46e5" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="354" cy="332" r="40" fill="#7c3aed"/>
+  <path d="M340 332l12 12 24-24" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
