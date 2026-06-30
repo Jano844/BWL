@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>BWL Lernapp · HHN SoSe 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-logo">📊</span>
+        <div class="brand-text">
+          <h1>BWL Lernapp</h1>
+          <p>Einführung in die BWL · HHN · SoSe 2026</p>
+        </div>
+      </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Design wechseln" title="Hell/Dunkel">🌙</button>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-view="cards" role="tab">🃏 Karteikarten</button>
+      <button class="tab" data-view="quiz" role="tab">🎯 Quiz</button>
+      <button class="tab" data-view="exercises" role="tab">✍️ Übungen</button>
+      <button class="tab" data-view="summary" role="tab">📌 Spickzettel</button>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <!-- ============ KARTEIKARTEN ============ -->
+    <section id="view-cards" class="view active">
+      <div class="toolbar">
+        <div class="filter-group" id="cardFilters"></div>
+        <div class="toolbar-actions">
+          <button id="shuffleBtn" class="btn btn-ghost">🔀 Mischen</button>
+          <button id="resetProgress" class="btn btn-ghost">↺ Fortschritt</button>
+        </div>
+      </div>
+
+      <div class="progress-row">
+        <div class="progress-bar"><span id="cardProgressFill"></span></div>
+        <span id="cardCounter" class="counter">1 / 1</span>
+      </div>
+
+      <div class="flashcard-wrap">
+        <div id="flashcard" class="flashcard" tabindex="0" aria-label="Karteikarte – tippen zum Umdrehen">
+          <div class="flashcard-inner">
+            <div class="flashcard-face flashcard-front">
+              <span class="face-label">Frage</span>
+              <span class="card-badge" id="cardBadge"></span>
+              <p class="card-text" id="cardQuestion">Lade …</p>
+              <span class="flip-hint">Tippen zum Umdrehen ↻</span>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <span class="face-label">Antwort</span>
+              <p class="card-text" id="cardAnswer"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-controls">
+        <button id="prevCard" class="btn btn-nav">←</button>
+        <button id="knowNo" class="btn btn-danger">✗ Nochmal</button>
+        <button id="knowYes" class="btn btn-success">✓ Gewusst</button>
+        <button id="nextCard" class="btn btn-nav">→</button>
+      </div>
+      <p class="stats-line" id="cardStats"></p>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section id="view-quiz" class="view">
+      <!-- Startbildschirm -->
+      <div id="quizStart" class="quiz-start">
+        <div class="quiz-hero">🎯</div>
+        <h2>Multiple-Choice Quiz</h2>
+        <p>Teste dein Wissen mit zufälligen Fragen aus allen Kapiteln. Pro richtiger Antwort gibt es einen Punkt.</p>
+        <div class="quiz-len">
+          <span>Anzahl Fragen:</span>
+          <div class="filter-group" id="quizLenPicker"></div>
+        </div>
+        <button id="quizStartBtn" class="btn btn-primary-lg">Quiz starten ▶</button>
+        <p class="quiz-best" id="quizBest"></p>
+      </div>
+
+      <!-- Frage-Ansicht -->
+      <div id="quizPlay" class="quiz-play" hidden>
+        <div class="progress-row">
+          <div class="progress-bar"><span id="quizProgressFill"></span></div>
+          <span id="quizCounter" class="counter">1 / 1</span>
+        </div>
+        <div class="quiz-scoreline">
+          <span class="quiz-badge" id="quizCat"></span>
+          <span id="quizScore" class="counter">Punkte: 0</span>
+        </div>
+        <div class="quiz-card">
+          <p class="quiz-question" id="quizQuestion"></p>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button id="quizNextBtn" class="btn btn-primary-lg" hidden>Weiter →</button>
+      </div>
+
+      <!-- Ergebnis -->
+      <div id="quizResult" class="quiz-result" hidden>
+        <div class="quiz-hero" id="quizResultEmoji">🎉</div>
+        <h2 id="quizResultTitle">Geschafft!</h2>
+        <p class="quiz-result-score" id="quizResultScore"></p>
+        <div class="quiz-ring"><svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="52"/><circle class="ring-fg" id="quizRing" cx="60" cy="60" r="52"/></svg><span id="quizPercent">0%</span></div>
+        <button id="quizRestartBtn" class="btn btn-primary-lg">Nochmal spielen 🔄</button>
+      </div>
+    </section>
+
+    <!-- ============ ÜBUNGSAUFGABEN ============ -->
+    <section id="view-exercises" class="view">
+      <div class="toolbar">
+        <div class="filter-group" id="exFilters"></div>
+      </div>
+      <div id="exerciseList" class="exercise-list"></div>
+
+      <div class="selftest-block" id="selftestBlock">
+        <h3 class="selftest-head">⏱️ Mini-Selbsttest <small>(ohne Hilfsmittel, ca. 10 Min)</small></h3>
+        <div id="selftestList" class="exercise-list"></div>
+      </div>
+    </section>
+
+    <!-- ============ SPICKZETTEL ============ -->
+    <section id="view-summary" class="view">
+      <div class="summary-intro">
+        <p>📌 Klausur-Spickzettel: Formeln, Definitionen &amp; Schwerpunkte. <strong>🔴</strong> sehr wichtig · <strong>🟠</strong> Rechnung · <strong>🟡</strong> erklären/Beispiel.</p>
+      </div>
+      <div id="summaryList" class="summary-list"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Selbst rechnen · dann Lösung aufdecken · Erfolg = Ertrag − Aufwand 💪</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
